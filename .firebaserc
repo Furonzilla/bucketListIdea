@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "bucket-list-idea": {
+      "hosting": {
+        "bucketListSharing": [
+          "bucket-list-idea"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "bucket-list-idea"
+  }
+}

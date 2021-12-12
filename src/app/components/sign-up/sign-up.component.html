@@ -1,0 +1,89 @@
+<!-- enregistrer un nouvel utilisateur -->
+<form
+  class="container"
+  (ngSubmit)="(myForm.valid && createAccount())"
+  [formGroup]="signupForm"
+  #myForm="ngForm"
+>
+  <h1>Sign-Up</h1>
+  <div class="form-floating mb-3">
+    <input
+      type="email"
+      class="form-control"
+      id="floatingInput"
+      placeholder="name@example.com"
+      formControlName="email"
+    />
+    <label for="floatingInput">Email address</label>
+  </div>
+  <div formGroupName="checkPassword">
+    <div class="form-floating mb-3">
+      <input
+        type="password"
+        class="form-control"
+        id="floatingPassword"
+        placeholder="Password"
+        formControlName="password"
+      />
+      <label for="floatingPassword">Password</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="password"
+        class="form-control"
+        id="floatingPassword"
+        placeholder="Password"
+        formControlName="confirmPassword"
+      />
+      <label for="floatingPassword">Confirm password</label>
+    </div>
+  </div>
+
+  <div class="mb-3" style="display: flex">
+    <input class="btn btn-primary" type="submit" value="Create an account" />
+    <small
+      ><a class="nav-link" [routerLink]="['/sign-in']"
+        >Already registered ? Click here to sign-in.</a
+      ></small
+    >
+  </div>
+  <div
+    class="alert alert-danger"
+    role="alert"
+    *ngIf="myForm.submitted && myForm.invalid"
+  >
+    <div *ngIf="myForm.submitted && signupForm.get('email')?.errors?.['required']">
+      An email is required.
+    </div>
+    <div *ngIf="myForm.submitted && signupForm.get('email')?.errors?.['email']">
+        Must respect the email format.
+      </div>
+    <div
+      *ngIf="
+        myForm.submitted &&
+        signupForm.get('checkPassword')?.get('password')?.errors?.['required']
+      "
+    >
+      A password is required.
+    </div>
+    <div
+      *ngIf="
+        myForm.submitted &&
+        !signupForm.get('checkPassword')?.get('password')?.errors?.['required'] &&
+        signupForm.get('checkPassword')?.get('confirmPassword')?.errors?.['required']
+      "
+    >
+      Please confirm your password.
+    </div>
+    <div
+    *ngIf="
+      myForm.submitted &&
+      !signupForm.get('checkPassword')?.get('password')?.errors?.['required'] &&
+      !signupForm.get('checkPassword')?.get('confirmPassword')?.errors?.['required'] &&
+      signupForm.get('checkPassword')?.errors
+    "
+  >
+    Passwords must match.
+  </div>
+  </div>
+</form>
